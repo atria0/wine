@@ -1,17 +1,24 @@
-name: Build Wine with Patch
+name: Build Wine with Patch with CI
 
 on:
   push:
     branches:
-      - main  # 可以根据需要修改分支名称
+      - main 
 
 jobs:
   build:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+
+      - uses: actions/checkout@v4
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: bootstraps.yml
+          workflow_conclusion: success
+          path: /opt
 
       - name: Install dependencies
         run: |
@@ -20,12 +27,11 @@ jobs:
             libxrandr-dev libxext-dev libxi-dev libxcomposite-dev libxdamage-dev libxrender-dev \
             libxkbfile-dev libxss-dev libxtst-dev libxxf86vm-dev libxfixes-dev libasound2-dev \
             libpulse-dev libdbus-1-dev libgphoto2-dev libudev-dev libxml2-dev libxslt1-dev \
-            libgnutls28-dev libsdl2-dev debootstrap perl git wget xz-utils bubblewrap autoconf
-
-      - name: Apply patch
-        run: patch -p1 < esync.patch
-             patch -p1 < pathfix.patch
-             patch -p1 < termux-wine-fix.patch
+            libgnutls28-dev libsdl2-dev debootstrap perl git wget xz-utils bubblewrap autoconf 
+          sudo tar -C /opt -xpf /opt/Bootstraps/bootstraps.tar.xz
+          patch -p1 < esync.patch
+          patch -p1 < pathfix.patch
+          patch -p1 < termux-wine-fix.patch
 
       - name: Configure Wine
         run: |
@@ -35,6 +41,7 @@ jobs:
           WINE_BRANCH=vanilla ./build_wine.sh
           WINE_BRANCH=staging ./build_wine.sh
           WINE_BRANCH=staging-tkg ./build_wine.sh
+          sha256sum *.tar.xz
 
 
 
