@@ -1,9 +1,7 @@
 name: Build Wine with Patch with CI
 
 on:
-  push:
-    branches:
-      - main 
+  workflow_dispatch:
 
 jobs:
   build:
