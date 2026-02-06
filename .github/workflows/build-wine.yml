@@ -27,9 +27,7 @@ jobs:
             libpulse-dev libdbus-1-dev libgphoto2-dev libudev-dev libxml2-dev libxslt1-dev \
             libgnutls28-dev libsdl2-dev debootstrap perl git wget xz-utils bubblewrap autoconf 
           sudo tar -C /opt -xpf /opt/Bootstraps/bootstraps.tar.xz
-          patch -p1 < esync.patch
-          patch -p1 < pathfix.patch
-          patch -p1 < termux-wine-fix.patch
+    
 
       - name: Configure Wine
         run: |
