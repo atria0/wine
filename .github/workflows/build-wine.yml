@@ -1,0 +1,51 @@
+name: Build Wine with Patch
+
+on:
+  push:
+    branches:
+      - main  # 可以根据需要修改分支名称
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential flex bison libx11-dev libxcursor-dev libxinerama-dev \
+            libxrandr-dev libxext-dev libxi-dev libxcomposite-dev libxdamage-dev libxrender-dev \
+            libxkbfile-dev libxss-dev libxtst-dev libxxf86vm-dev libxfixes-dev libasound2-dev \
+            libpulse-dev libdbus-1-dev libgphoto2-dev libudev-dev libxml2-dev libxslt1-dev \
+            libgnutls28-dev libsdl2-dev debootstrap perl git wget xz-utils bubblewrap autoconf
+
+      - name: Apply patch
+        run: patch -p1 < esync.patch
+             patch -p1 < pathfix.patch
+             patch -p1 < termux-wine-fix.patch
+
+      - name: Configure Wine
+        run: |
+          chmod +x build_wine.sh
+          export WINE_VERSION="$(wget -q -O - "https://raw.githubusercontent.com/Kron4ek/wine-tkg/master/VERSION" | tail -c +14)"
+          export EXPERIMENTAL_WOW64="true"
+          WINE_BRANCH=vanilla ./build_wine.sh
+          WINE_BRANCH=staging ./build_wine.sh
+          WINE_BRANCH=staging-tkg ./build_wine.sh
+
+
+
+     # - name: Upload artifact
+      #  uses: actions/upload-artifact@v3
+     #   with:
+     #     name: wine-build
+      #    path: |
+       #     ./wine-*  # 根据实际编译输出调整路径
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Wine Stable
+          path: ./*.tar.xz
