@@ -296,9 +296,9 @@ else
 fi
 
 cd ${BUILD_DIR}/wine-staging-${WINE_VERSION}/
-curl -O https://raw.githubusercontent.com/atria0/wine/pathfix.patch
-curl -O https://raw.githubusercontent.com/atria0/wine/termux-wine-fix.patch
-curl -O https://raw.githubusercontent.com/atria0/wine/esync.patch
+curl -LO https://github.com/atria0/wine/raw/refs/heads/master/pathfix.patch
+curl -LO https://github.com/atria0/wine/raw/refs/heads/master/termux-wine-fix.patch
+curl -LO https://github.com/atria0/wine/raw/refs/heads/master/esync.patch
 patch -p1 < ./termux-wine-fix.patch
 patch -p1 < ./pathfix.patch
 patch -p1 < ./esync.patch
