@@ -11,7 +11,7 @@
 ## You can change the environment variables below to your desired values.
 ##
 ########################################################################
-
+ls $HOME
 # Prevent launching as root
 if [ $EUID = 0 ] && [ -z "$ALLOW_ROOT" ]; then
 	echo "Do not run this script as root!"
@@ -268,11 +268,15 @@ else
 
 		if [ -f wine-staging-"${WINE_VERSION}"/patches/patchinstall.sh ]; then
 			staging_patcher=("${BUILD_DIR}"/wine-staging-"${WINE_VERSION}"/patches/patchinstall.sh
-							DESTDIR="${BUILD_DIR}"/wine && patch -p1 < $HOME/termux-wine-fix.patch && patch -p1 < $HOME/pathfix.patch )
+							DESTDIR="${BUILD_DIR}"/wine )
 		else
 			staging_patcher=("${BUILD_DIR}"/wine-staging-"${WINE_VERSION}"/staging/patchinstall.py)
 		fi
 
+  cd ${BUILD_DIR}"/wine-staging-"${WINE_VERSION}" 
+  patch -p1 < $HOME/termux-wine-fix.patch 
+  patch -p1 < $HOME/pathfix.patch
+    
 		cd wine || exit 1
 		if [ -n "${STAGING_ARGS}" ]; then
 			"${staging_patcher[@]}" ${STAGING_ARGS}
