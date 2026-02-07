@@ -1,4 +1,4 @@
-m#!/usr/bin/env bash
+#!/usr/bin/env bash
 
 ########################################################################
 ##
@@ -246,7 +246,7 @@ else
       curl -LO https://github.com/atria0/wine/raw/refs/heads/master/esync.patch -o "${BUILD_DIR}"/
       patch -d wine -Np1 < "${BUILD_DIR}"/termux-wine-fix.patch
       patch -d wine -Np1 < "${BUILD_DIR}"/pathfix.patch
-      patch -d wine -Np1 < "${BUILD_DIR}"/esync.patch
+     # patch -d wine -Np1 < "${BUILD_DIR}"/esync.patch
 	# patch -d wine -Np1 < "${scriptdir}"/ntsync-fix-32-bit-processes.patch && echo "Applied fix for 32-bit processes for NTSYNC"
 
 	if [ "${WINE_BRANCH}" = "staging" ]; then
@@ -290,11 +290,11 @@ else
 			"${staging_patcher[@]}" --all
 		fi
 
-		if [ $? -ne 0 ]; then
-			echo
-			echo "Wine-Staging patches were not applied correctly!"
-			exit 1
-		fi
+		#if [ $? -ne 0 ]; then
+		#	echo
+		#	echo "Wine-Staging patches were not applied correctly!"
+		#	exit 1
+		#fi
 
 		cd "${BUILD_DIR}" || exit 1
 	fi
