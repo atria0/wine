@@ -244,8 +244,8 @@ else
       curl -LO https://github.com/atria0/wine/raw/refs/heads/master/pathfix.patch -o "${BUILD_DIR}"/
       curl -LO https://github.com/atria0/wine/raw/refs/heads/master/termux-wine-fix.patch -o "${BUILD_DIR}"/
       curl -LO https://github.com/atria0/wine/raw/refs/heads/master/esync.patch -o "${BUILD_DIR}"/
-      patch -d wine -Np1 < "${BUILD_DIR}"/termux-wine-fix.patch
-      patch -d wine -Np1 < "${BUILD_DIR}"/pathfix.patch
+     # patch -d wine -Np1 < "${BUILD_DIR}"/termux-wine-fix.patch
+     # patch -d wine -Np1 < "${BUILD_DIR}"/pathfix.patch
      # patch -d wine -Np1 < "${BUILD_DIR}"/esync.patch
 	# patch -d wine -Np1 < "${scriptdir}"/ntsync-fix-32-bit-processes.patch && echo "Applied fix for 32-bit processes for NTSYNC"
 
