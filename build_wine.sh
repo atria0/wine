@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+m#!/usr/bin/env bash
 
 ########################################################################
 ##
@@ -306,7 +306,7 @@ patch -p1 < ./pathfix.patch
 patch -p1 < ./esync.patch
 cd "${BUILD_DIR}"
 
-if [ ! -d wine ]; then
+if [ ! -d wine-src ]; then
 	clear
 	echo "No Wine source code found!"
 	echo "Make sure that the correct Wine version is specified."
