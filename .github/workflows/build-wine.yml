@@ -25,7 +25,7 @@ jobs:
             libxrandr-dev libxext-dev libxi-dev libxcomposite-dev libxdamage-dev libxrender-dev \
             libxkbfile-dev libxss-dev libxtst-dev libxxf86vm-dev libxfixes-dev libasound2-dev \
             libpulse-dev libdbus-1-dev libgphoto2-dev libudev-dev libxml2-dev libxslt1-dev \
-            libgnutls28-dev libsdl2-dev debootstrap perl git wget xz-utils bubblewrap autoconf 
+            libgnutls28-dev libsdl2-dev debootstrap perl git wget xz-utils bubblewrap autoconf curl
           sudo tar -C /opt -xpf /opt/Bootstraps/bootstraps.tar.xz
     
 
