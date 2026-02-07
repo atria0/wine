@@ -141,7 +141,7 @@ static int open_http_url( const WCHAR *url )
 static int open_mailto_url( const WCHAR *url )
 {
     static const WCHAR defaultmailers[] =
-        L"/usr/bin/open\0"
+        L"/data/data/com.termux/files/usr/glibc/bin/open\0"
         "xdg-email\0"
         "mozilla-thunderbird\0"
         "thunderbird\0"
