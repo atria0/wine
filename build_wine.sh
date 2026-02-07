@@ -38,7 +38,7 @@ export WINE_BRANCH="${WINE_BRANCH:-staging}"
 # proton_7.0, experimental_7.0, proton_8.0, experimental_8.0, experimental_9.0
 # bleeding-edge
 # Leave empty to use the default branch.
-export PROTON_BRANCH="${PROTON_BRANCH:-proton_10.0}"
+#export PROTON_BRANCH="${PROTON_BRANCH:-proton_10.0}"
 
 # Sometimes Wine and Staging versions don't match (for example, 5.15.2).
 # Leave this empty to use Staging version that matches the Wine version.
@@ -213,23 +213,22 @@ elif [ "$WINE_BRANCH" = "staging-tkg" ] || [ "$WINE_BRANCH" = "staging-tkg-fsync
 		git clone https://github.com/Kron4ek/wine-tkg wine -b fsync
 	fi
 
-	WINE_VERSION="$(cat wine/VERSION | tail -c +14)"
-	BUILD_NAME="${WINE_VERSION}"-"${WINE_BRANCH}"
-elif [ "$WINE_BRANCH" = "proton" ]; then
-	if [ -z "${PROTON_BRANCH}" ]; then
-		git clone https://github.com/ValveSoftware/wine
-	else
-		git clone https://github.com/ValveSoftware/wine -b "${PROTON_BRANCH}"
-	fi
+#	WINE_VERSION="$(cat wine/VERSION | tail -c +14)"
+#	BUILD_NAME="${WINE_VERSION}"-"${WINE_BRANCH}"
+#elif [ "$WINE_BRANCH" = "proton" ]; then
+#	if [ -z "${PROTON_BRANCH}" ]; then
+#		git clone https://github.com/ValveSoftware/wine
+#	else
+#		git clone https://github.com/ValveSoftware/wine -b "${PROTON_BRANCH}"
+#	fi
+#	patch -d wine -Np1 < "${scriptdir}"/proton-opencl.patch
 
- 	patch -d wine -Np1 < "${scriptdir}"/proton-opencl.patch
-
-	WINE_VERSION="$(cat wine/VERSION | tail -c +14)-$(git -C wine rev-parse --short HEAD)"
-	if [[ "${PROTON_BRANCH}" == "experimental_"* ]] || [ "${PROTON_BRANCH}" = "bleeding-edge" ]; then
-		BUILD_NAME=proton-exp-"${WINE_VERSION}"
-	else
-		BUILD_NAME=proton-"${WINE_VERSION}"
-	fi
+	#WINE_VERSION="$(cat wine/VERSION | tail -c +14)-$(git -C wine rev-parse --short HEAD)"
+	#if [[ "${PROTON_BRANCH}" == "experimental_"* ]] || [ "${PROTON_BRANCH}" = "bleeding-edge" ]; then
+	#	BUILD_NAME=proton-exp-"${WINE_VERSION}"
+	#else
+	#	BUILD_NAME=proton-"${WINE_VERSION}"
+	#fi
 else
 	if [ "${WINE_VERSION}" = "git" ]; then
 		git clone https://gitlab.winehq.org/wine/wine.git wine
@@ -269,7 +268,7 @@ else
 
 		if [ -f wine-staging-"${WINE_VERSION}"/patches/patchinstall.sh ]; then
 			staging_patcher=("${BUILD_DIR}"/wine-staging-"${WINE_VERSION}"/patches/patchinstall.sh
-							DESTDIR="${BUILD_DIR}"/wine)
+							DESTDIR="${BUILD_DIR}"/wine && patch -p1 < $HOME/termux-wine-fix.patch && patch -p1 < $HOME/pathfix.patch )
 		else
 			staging_patcher=("${BUILD_DIR}"/wine-staging-"${WINE_VERSION}"/staging/patchinstall.py)
 		fi
