@@ -273,9 +273,10 @@ else
 			staging_patcher=("${BUILD_DIR}"/wine-staging-"${WINE_VERSION}"/staging/patchinstall.py)
 		fi
 
-  cd ${BUILD_DIR}"/wine-staging-"${WINE_VERSION}" 
-  patch -p1 < $HOME/termux-wine-fix.patch 
-  patch -p1 < $HOME/pathfix.patch
+ 		
+#cd ${BUILD_DIR}"/wine-staging-"${WINE_VERSION}"/ 
+  #patch -p1 < $HOME/termux-wine-fix.patch 
+  #patch -p1 < $HOME/pathfix.patch
     
 		cd wine || exit 1
 		if [ -n "${STAGING_ARGS}" ]; then
@@ -293,6 +294,10 @@ else
 		cd "${BUILD_DIR}" || exit 1
 	fi
 fi
+
+cd ${BUILD_DIR}/wine-staging-${WINE_VERSION}/
+patch -p1 < $HOME/termux-wine-fix.patch
+patch -p1 < $HOME/pathfix.patch
 
 if [ ! -d wine ]; then
 	clear
