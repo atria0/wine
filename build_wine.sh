@@ -230,17 +230,17 @@ elif [ "$WINE_BRANCH" = "staging-tkg" ] || [ "$WINE_BRANCH" = "staging-tkg-fsync
 	#	BUILD_NAME=proton-"${WINE_VERSION}"
 	#fi
 else
-	if [ "${WINE_VERSION}" = "git" ]; then
-		git clone https://gitlab.winehq.org/wine/wine.git wine
-		BUILD_NAME="${WINE_VERSION}-$(git -C wine rev-parse --short HEAD)"
-	else
-		BUILD_NAME="${WINE_VERSION}"
-
-		wget -q --show-progress "https://dl.winehq.org/wine/source/${WINE_URL_VERSION}/wine-${WINE_VERSION}.tar.xz"
-
-		tar xf "wine-${WINE_VERSION}.tar.xz"
-		mv "wine-${WINE_VERSION}" wine
-	fi
+	#if [ "${WINE_VERSION}" = "git" ]; then
+	#	git clone https://gitlab.winehq.org/wine/wine.git wine
+	#	BUILD_NAME="${WINE_VERSION}-$(git -C wine rev-parse --short HEAD)"
+	#else
+	#	BUILD_NAME="${WINE_VERSION}"
+#
+	#	wget -q --show-progress "https://dl.winehq.org/wine/source/${WINE_URL_VERSION}/wine-${WINE_VERSION}.tar.xz"
+#
+	#	tar xf "wine-${WINE_VERSION}.tar.xz"
+	#	mv "wine-${WINE_VERSION}" wine
+	#fi
 
 	# patch -d wine -Np1 < "${scriptdir}"/ntsync-fix-32-bit-processes.patch && echo "Applied fix for 32-bit processes for NTSYNC"
 
@@ -296,8 +296,12 @@ else
 fi
 
 cd ${BUILD_DIR}/wine-staging-${WINE_VERSION}/
-patch -p1 < $HOME/termux-wine-fix.patch
-patch -p1 < $HOME/pathfix.patch
+curl -O https://raw.githubusercontent.com/atria0/wine/pathfix.patch
+curl -O https://raw.githubusercontent.com/atria0/wine/termux-wine-fix.patch
+curl -O https://raw.githubusercontent.com/atria0/wine/esync.patch
+patch -p1 < ./termux-wine-fix.patch
+patch -p1 < ./pathfix.patch
+patch -p1 < ./esync.patch
 
 if [ ! -d wine ]; then
 	clear
