@@ -295,16 +295,16 @@ else
 	fi
 fi
 
-export patttt=$(pwd)
 
-cd ../
+
+cd wine
 curl -LO https://github.com/atria0/wine/raw/refs/heads/master/pathfix.patch
 curl -LO https://github.com/atria0/wine/raw/refs/heads/master/termux-wine-fix.patch
 curl -LO https://github.com/atria0/wine/raw/refs/heads/master/esync.patch
 patch -p1 < ./termux-wine-fix.patch
 patch -p1 < ./pathfix.patch
 patch -p1 < ./esync.patch
-cd $patttt
+cd "${BUILD_DIR}"
 
 if [ ! -d wine ]; then
 	clear
