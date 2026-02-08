@@ -49,5 +49,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Wine Stable
-          path:  /home/runner/work/wine/wine/*.tar.xz
+          name: Wine-Stable
+          path:  ./*.tar.xz
