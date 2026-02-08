@@ -35,8 +35,10 @@ jobs:
           export WINE_VERSION="$(wget -q -O - "https://raw.githubusercontent.com/Kron4ek/wine-tkg/master/VERSION" | tail -c +14)"
           export EXPERIMENTAL_WOW64="true"
           git clone https://github.com/atria0/wine $HOME/wine-master
+          git clone https://github.com/wine-staging/wine-staging wine-staging-"${WINE_VERSION}"
+          staging_patcher=("${BUILD_DIR}"/wine-staging-"${WINE_VERSION}"/staging/patchinstall.py DESTDIR=$HOME/wine-master
+          "${staging_patcher[@]}" --all
           WINE_BRANCH=staging ./build_wine.sh
-          WINE_BRANCH=staging-tkg ./build_wine.sh
 
 
 
