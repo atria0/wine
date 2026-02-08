@@ -327,7 +327,7 @@ static char *get_nls_dir(void)
 /* load the case mapping table */
 struct fd *load_intl_file(void)
 {
-    static const char *nls_dirs[] = { NULL, NLSDIR, "/data/data/com.termux
+    static const char *nls_dirs[] = { NULL, DATADIR, "/data/data/com.termux
 /files/usr/glibc/local/share/wine/nls", "/data/data/com.termux/files/usr/gl
 ibc/share/wine/nls" };
     static const WCHAR nt_pathW[] = {'C',':','\\','w','i','n','d','o','w','s','\\',
