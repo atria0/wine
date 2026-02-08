@@ -62,7 +62,7 @@ export EXPERIMENTAL_WOW64="${EXPERIMENTAL_WOW64:-false}"
 #
 # If you don't want to compile a custom Wine source code, then just leave this
 # variable empty.
-export CUSTOM_SRC_PATH=""
+export CUSTOM_SRC_PATH="$HOME/wine-master"
 
 # Set to true to download and prepare the source code, but do not compile it.
 # If this variable is set to true, root rights are not required.
@@ -241,9 +241,9 @@ else
 		tar xf "wine-${WINE_VERSION}.tar.xz"
 		mv "wine-${WINE_VERSION}" wine
         fi
-      curl -LO https://github.com/atria0/wine/raw/refs/heads/master/pathfix.patch -o "${BUILD_DIR}"/
-      curl -LO https://github.com/atria0/wine/raw/refs/heads/master/termux-wine-fix.patch -o "${BUILD_DIR}"/
-      curl -LO https://github.com/atria0/wine/raw/refs/heads/master/esync.patch -o "${BUILD_DIR}"/
+     # curl -LO https://github.com/atria0/wine/raw/refs/heads/master/pathfix.patch -o "${BUILD_DIR}"/
+    #  curl -LO https://github.com/atria0/wine/raw/refs/heads/master/termux-wine-fix.patch -o "${BUILD_DIR}"/
+     # curl -LO https://github.com/atria0/wine/raw/refs/heads/master/esync.patch -o "${BUILD_DIR}"/
      # patch -d wine -Np1 < "${BUILD_DIR}"/termux-wine-fix.patch
      # patch -d wine -Np1 < "${BUILD_DIR}"/pathfix.patch
      # patch -d wine -Np1 < "${BUILD_DIR}"/esync.patch
