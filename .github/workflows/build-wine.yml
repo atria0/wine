@@ -25,7 +25,7 @@ jobs:
             libxrandr-dev libxext-dev libxi-dev libxcomposite-dev libxdamage-dev libxrender-dev \
             libxkbfile-dev libxss-dev libxtst-dev libxxf86vm-dev libxfixes-dev libasound2-dev \
             libpulse-dev libdbus-1-dev libgphoto2-dev libudev-dev libxml2-dev libxslt1-dev \
-            libgnutls28-dev libsdl2-dev debootstrap perl git wget xz-utils bubblewrap autoconf curl
+            libgnutls28-dev libsdl2-dev debootstrap perl git wget xz-utils bubblewrap autoconf curl python3
           sudo tar -C /opt -xpf /opt/Bootstraps/bootstraps.tar.xz
     
 
@@ -35,9 +35,8 @@ jobs:
           export WINE_VERSION="$(wget -q -O - "https://raw.githubusercontent.com/Kron4ek/wine-tkg/master/VERSION" | tail -c +14)"
           export EXPERIMENTAL_WOW64="true"
           git clone https://github.com/atria0/wine $HOME/wine-master
-          git clone https://github.com/wine-staging/wine-staging wine-staging-"${WINE_VERSION}"
-          staging_patcher=("${BUILD_DIR}"/wine-staging-"${WINE_VERSION}"/staging/patchinstall.py DESTDIR=$HOME/wine-master
-          "${staging_patcher[@]}" --all
+          git clone https://github.com/wine-staging/wine-staging $HOME/wine-staging
+          python3 $HOME/wine-staging/staging/patchinstall.py DESTDIR=$HOME/wine-master --all
           WINE_BRANCH=staging ./build_wine.sh
 
 
